@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveDataTypeable, TypeFamilies, TemplateHaskell#-}
 
-module Table  where
+module Table where
 
 import Control.Lens ((?=), at, from, makeIso, view)
 import Data.Acid (Update, Query, makeAcidic)
