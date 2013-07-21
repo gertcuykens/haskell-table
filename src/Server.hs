@@ -1,5 +1,3 @@
-module Server (main) where
-
 import Control.Exception     ( bracket )
 import Data.Acid             ( AcidState )
 import Data.Acid.Local       ( openLocalState, createCheckpointAndClose )
