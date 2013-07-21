@@ -1,6 +1,6 @@
 import Control.Exception     ( bracket )
-import Data.Acid             ( AcidState )
-import Data.Acid.Local       ( openLocalState, createCheckpointAndClose )
+import Data.Acid             ( AcidState, closeAcidState )
+import Data.Acid.Local       ( openLocalState )
 import Data.Acid.Remote      ( acidServer, sharedSecretCheck )
 import Data.ByteString.Char8 ( pack )
 import Data.Map              ( empty )
@@ -8,15 +8,12 @@ import Data.Set              ( singleton )
 import Network               ( PortID(PortNumber) )
 import Table                 ( UserMap(..) )
 
-state :: IO (AcidState UserMap)
-state = openLocalState $ UserMap empty
+openAcidState :: IO (AcidState UserMap)
+openAcidState = openLocalState $ UserMap empty
 
-server :: AcidState UserMap -> IO ()
-server = acidServer (sharedSecretCheck (singleton $ pack "12345")) (PortNumber 8080)
+runAcidState :: AcidState UserMap -> IO ()
+runAcidState = acidServer (sharedSecretCheck (singleton $ pack "12345")) (PortNumber 8080)
 
 main :: IO ()
-main = bracket
-    state
-    createCheckpointAndClose
-    server
+main = bracket openAcidState closeAcidState runAcidState
 
