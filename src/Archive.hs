@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 import Control.Exception     ( bracket )
 import Data.Acid             ( AcidState, createCheckpoint, closeAcidState )
 import Data.Acid.Advanced    ( query', update' )
@@ -13,11 +12,11 @@ openAcidState = openRemoteState (sharedSecretPerform $ pack "12345") "localhost"
 
 runAcidState :: AcidState UserMap -> IO ()
 runAcidState acid = do
-    _ <- update' acid (InsertKey "1" (User "1" "" "" ""))
-    _ <- update' acid (InsertKey "2" (User "2" "" "" ""))
-    _ <- update' acid (InsertKey "3" (User "3" "" "" ""))
-    _ <- update' acid (InsertKey "4" (User "4" "" "" ""))
-    p <- query' acid (LookupKey "4")
+    _ <- update' acid (InsertKey 1 (User "" "" ["User"]))
+    _ <- update' acid (InsertKey 2 (User "" "" ["User"]))
+    _ <- update' acid (InsertKey 3 (User "" "" ["User"]))
+    _ <- update' acid (InsertKey 4 (User "" "" ["User"]))
+    p <- query' acid (LookupKey 4)
     print p
     createCheckpoint acid
 

@@ -1,7 +1,7 @@
 name: haskell-table
 version: 0.0.0.0
 synopsis: Haskell acid table.
-description:
+--description:
 --homepage: https://github.com/gertcuykens/haskell-table.git
 license: GPL-3
 --license-file: LICENSE
@@ -10,9 +10,9 @@ maintainer: gert.cuykens@gmail.com
 category: Data
 build-type: Simple
 cabal-version: >=1.8
-Source-repository head
-  type: git
-  location: https://github.com/gertcuykens/haskell-table.git
+source-repository head
+    type: git
+    location: https://github.com/gertcuykens/haskell-table.git
 --data-files:
 
 library
@@ -24,7 +24,6 @@ library
                  , containers >= 0.5
                  , lens >= 3.2
                  , safecopy >= 0.7
-                 , text >= 0.11
 
 executable archive
     hs-source-dirs: src
@@ -37,7 +36,6 @@ executable archive
                  , containers >= 0.5
                  , lens >= 3.2
                  , safecopy >= 0.7
-                 , text >= 0.11
                  , network >= 2.4
 
 executable server
@@ -51,6 +49,5 @@ executable server
                  , containers >= 0.5
                  , lens >= 3.2
                  , safecopy >= 0.7
-                 , text >= 0.11
                  , network >= 2.4
 
