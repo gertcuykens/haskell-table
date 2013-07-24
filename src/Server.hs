@@ -6,12 +6,12 @@ import Data.ByteString.Char8 ( pack )
 import Data.Map              ( empty )
 import Data.Set              ( singleton )
 import Network               ( PortID(PortNumber) )
-import Table                 ( UserMap(..) )
+import Table                 ( GroupMap(..) )
 
-openAcidState :: IO (AcidState UserMap)
-openAcidState = openLocalState $ UserMap empty
+openAcidState :: IO (AcidState GroupMap)
+openAcidState = openLocalState $ GroupMap empty
 
-runAcidState :: AcidState UserMap -> IO ()
+runAcidState :: AcidState GroupMap -> IO ()
 runAcidState = acidServer (sharedSecretCheck (singleton $ pack "12345")) (PortNumber 8080)
 
 main :: IO ()

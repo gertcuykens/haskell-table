@@ -8,23 +8,22 @@ import Data.SafeCopy (deriveSafeCopy, base)
 import Data.Typeable (Typeable)
 import qualified Data.Map as Map (Map)
 
-data User = User {keyPrivate::String
-                 ,keyPublic::String
-                 ,keyGroup::[String]} deriving (Show, Typeable)
+type User = Int
+newtype Group = Group {group::[User]} deriving (Show, Typeable)
 
-$(deriveSafeCopy 0 'base ''User)
+$(deriveSafeCopy 0 'base ''Group)
 
-newtype UserMap = UserMap (Map.Map Int User) deriving (Show, Typeable)
+newtype GroupMap = GroupMap (Map.Map Int Group) deriving (Show, Typeable)
 
-$(deriveSafeCopy 0 'base ''UserMap)
+$(deriveSafeCopy 0 'base ''GroupMap)
 
-$(makeIso ''UserMap)
+$(makeIso ''GroupMap)
 
-insertKey :: Int -> User -> Update UserMap ()
-insertKey k v = (from userMap.at k) ?= v
+insertKey :: Int -> Group -> Update GroupMap ()
+insertKey k v = (from groupMap.at k) ?= v
 
-lookupKey :: Int -> Query UserMap (Maybe User)
-lookupKey k = view (from userMap.at k)
+lookupKey :: Int -> Query GroupMap (Maybe Group)
+lookupKey k = view (from groupMap.at k)
 
-$(makeAcidic ''UserMap ['insertKey, 'lookupKey])
+$(makeAcidic ''GroupMap ['insertKey, 'lookupKey])
 
